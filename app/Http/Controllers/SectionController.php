@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSectionRequest;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        return view('sections.sections');
+        $sections =Section::all();
+        return view('sections.sections',compact('sections'));
     }
 
     /**
@@ -35,7 +37,7 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSectionRequest $request)
     {
         
         Section::create([
@@ -78,9 +80,18 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(StoreSectionRequest $request)
     {
-        //
+        $id=$request -> id;
+        $section = Section::findOrFail($id);
+        $section ->update([
+            'section_name' => $request -> section_name,
+            'description'  => $request -> description,
+        ]);
+
+        session()->flash('edit','تم تعديل القسم بنجاح');
+        return redirect('/sections');
+
     }
 
     /**
@@ -89,8 +100,13 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy(Request $request)
     {
-        //
+        $id=$request ->id;
+        $section =Section::findOrFail($id);
+        $section->delete();
+        session()->flash('delete','تم حذف القسم بنجاح');
+        return redirect('/sections');
+
     }
 }
