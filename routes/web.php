@@ -31,6 +31,8 @@ Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
 
 Route::resource('sections', 'App\Http\Controllers\SectionController');
 
+Route::resource('products', 'App\Http\Controllers\ProductController');
+
 
 
 Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
