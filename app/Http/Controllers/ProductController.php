@@ -68,7 +68,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        
     }
 
     /**
@@ -78,9 +78,18 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request)
     {
-        //
+       $product =Product::findOrFail($request->pro_id);
+
+       $product->update([
+        'Product_name' => $request->Product_name,
+       'description' => $request->description,
+       'section_id' => $request->section_id,
+       ]);
+
+       session()->flash('edit','تم تعديل المنتج بنجاح');
+       return redirect('products');
     }
 
     /**
@@ -89,8 +98,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        $product =Product::findOrFail($request->pro_id);
+        $product->delete();
+        session()->flash('delete','تم حذف المنتج بنجاح');
+       return redirect('products');
+
     }
 }
