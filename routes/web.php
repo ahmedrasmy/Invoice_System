@@ -33,6 +33,6 @@ Route::resource('sections', 'App\Http\Controllers\SectionController');
 
 Route::resource('products', 'App\Http\Controllers\ProductController');
 
-
+Route::get('section/{id}','App\Http\Controllers\InvoiceController@getProducts');
 
 Route::get('/{page}', 'App\Http\Controllers\AdminController@index');

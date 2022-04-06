@@ -30,11 +30,17 @@
 					<div class="col-xl-12">
 						<div class="card mg-b-20">
 							<div class="card-header pb-0">
-								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">Bordered Table</h4>
-									<i class="mdi mdi-dots-horizontal text-gray"></i>
-								</div>
-								<p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
+									{{-- اضافة فاتورة						 --}}
+									<a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+											class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
+								
+										
+									
+									{{-- تصدير اكسيل						 --}}
+									<a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
+										style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
+								
+			
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
