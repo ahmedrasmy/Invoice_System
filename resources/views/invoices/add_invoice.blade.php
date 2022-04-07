@@ -27,6 +27,15 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
     @if (session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -52,19 +61,19 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">رقم الفاتورة</label>
                                 <input type="text" class="form-control" id="inputName" name="invoice_number"
-                                    title="يرجي ادخال رقم الفاتورة" required>
+                                    title="يرجي ادخال رقم الفاتورة" >
                             </div>
 
                             <div class="col">
                                 <label>تاريخ الفاتورة</label>
                                 <input class="form-control fc-datepicker" name="invoice_date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ date('Y-m-d') }}" required>
+                                    type="text" value="{{ date('Y-m-d') }}" >
                             </div>
 
                             <div class="col">
                                 <label>تاريخ الاستحقاق</label>
                                 <input class="form-control fc-datepicker" name="due_date" placeholder="YYYY-MM-DD"
-                                    type="text" required>
+                                    type="text" >
                             </div>
 
                         </div>
@@ -105,7 +114,7 @@
                                 <input type="text" class="form-control form-control-lg" id="Amount_Commission"
                                     name="amount_commission" title="يرجي ادخال مبلغ العمولة "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    required>
+                                    >
                             </div>
 
                             <div class="col">
@@ -113,7 +122,7 @@
                                 <input type="text" class="form-control form-control-lg" id="Discount" name="discount"
                                     title="يرجي ادخال مبلغ الخصم "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value=0 required>
+                                    value=0 >
                             </div>
 
                             <div class="col">
@@ -150,7 +159,7 @@
                             </div>
                         </div><br>
 
-                        <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
+                        <p class="text-danger">* صيغة المرفق  jpeg ,.jpg , png </p>
                         <h5 class="card-title">المرفقات</h5>
 
                         <div class="col-sm-12 col-md-12">

@@ -25,5 +25,9 @@ class Invoice extends Model
         'note',
         'payment_date',
     ];
-
+    
+    // invoice belongsTo section 
+    public function section(){
+        return $this->belongsTo('App\Models\Section');
+    }
 }

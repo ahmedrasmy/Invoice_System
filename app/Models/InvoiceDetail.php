@@ -12,11 +12,15 @@ class InvoiceDetail extends Model
         'id_invoice',
         'invoice_number',
         'product',
-        'section',
+        'section_id',
         'status',
         'value_status',
         'note',
         'user',
         'payment_date',
     ];
+    // invoiceDetails belongsTo section 
+    public function section(){
+        return $this->belongsTo('App\Models\Section');
+    }
 }

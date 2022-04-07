@@ -18,6 +18,13 @@ class Section extends Model
     //section hasMany products
 
     public function products(){
+
         return $this->hasMany('App\Models\Product');
     }
+
+   //section hasMany invoices 
+   public function invoices(){
+       
+       return $this->hasMany('App\Models\Invoice');
+   }
 }

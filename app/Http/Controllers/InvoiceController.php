@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Section;
@@ -24,7 +25,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('invoices.invoices');
+        $invoices=Invoice::all();
+        return view('invoices.invoices',compact('invoices'));
     }
 
     /**
@@ -44,7 +46,7 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
         Invoice::create([
             'invoice_number' => $request->invoice_number,
@@ -68,7 +70,7 @@ class InvoiceController extends Controller
             'id_invoice' => $invoice_id,
             'invoice_number' => $request->invoice_number,
             'product' => $request->product,
-            'section' => $request->section,
+            'section_id' => $request->section,
             'status' => 'غير مدفوعة',
             'value_status' => 2,
             'note' => $request->note,
@@ -142,5 +144,11 @@ class InvoiceController extends Controller
         $products = DB::table("products")->where("section_id", $id)->pluck("Product_name", "id");
         return json_encode($products);
 
+    }
+    public function fullDetails($id){
+        $invoice=Invoice::where('id',$id)->first();
+        $invoiceDetails = InvoiceDetail::where('id_invoice',$id)->get();
+        $invoiceAttachment = InvoiceAttachment::where('invoice_id',$id)->get();
+        return view('invoices.detail_invoice',compact('invoice','invoiceDetails','invoiceAttachment'));
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvoiceAttachment;
 use Illuminate\Http\Request;
+use App\Models\InvoiceAttachment;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class InvoiceAttachmentController extends Controller
 {
@@ -78,8 +80,29 @@ class InvoiceAttachmentController extends Controller
      * @param  \App\Models\InvoiceAttachment  $invoiceAttachment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InvoiceAttachment $invoiceAttachment)
+    public function destroy(Request $request)
     {
-        //
+        $invoices = InvoiceAttachment::findOrFail($request->id_file);
+        $invoices->delete();
+        unlink(public_path('Attachments/'.$request->invoice_number.'/'.$request->file_name));
+        session()->flash('delete', 'تم حذف المرفق بنجاح');
+        return back();
     }
+
+     public function get_file($invoice_number,$file_name)
+
+    {
+    
+        return response()->download( public_path('Attachments/'.$invoice_number.'/'.$file_name));
+    }
+
+
+
+    public function open_file($invoice_number,$file_name)
+
+    {
+        
+        return response()->file(public_path('Attachments/'.$invoice_number.'/'.$file_name));
+    }
+
 }
