@@ -28,6 +28,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
+Route::get('edit_invoice/{id}','App\Http\Controllers\InvoiceController@edit');
+Route::post('update_invoice/{id}','App\Http\Controllers\InvoiceController@update')->name('invoices.update');
 
 Route::resource('sections', 'App\Http\Controllers\SectionController');
 
@@ -42,6 +44,8 @@ Route::get('download/{invoice_number}/{file_name}', 'App\Http\Controllers\Invoic
 Route::get('View_file/{invoice_number}/{file_name}', 'App\Http\Controllers\InvoiceAttachmentController@open_file');
 
 Route::post('delete_file', 'App\Http\Controllers\InvoiceAttachmentController@destroy')->name('delete_file');
+
+Route::resource('InvoiceAttachments', 'App\Http\Controllers\InvoiceAttachmentController');
 
 
 Route::get('/{page}', 'App\Http\Controllers\AdminController@index');

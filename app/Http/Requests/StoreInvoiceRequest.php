@@ -34,7 +34,7 @@ class StoreInvoiceRequest extends FormRequest
             'value_vat'  => 'required|numeric|digits_between:1,8',
             'rate_vat' => 'required|string',
             'total'  => 'required|numeric|digits_between:1,8',
-            'pic' =>'image|mimes:jpg,bmp,jpeg,png',
+            'pic' =>'mimes:pdf,jpg,bmp,jpeg,png',
         ];
     }
 
@@ -70,7 +70,7 @@ class StoreInvoiceRequest extends FormRequest
             'total.required' => 'مبلغ الكلي مطلوب',
             'total.numeric' => 'مبلغ الكلي يجب ان يكون رقم',
             'total.digits_between' =>'مبلغ الكلي يجب ان لايتعدي 8 ارقام',
-            'pic.image' =>'حقل الصورة يجب ان من النوع image',
+            'pic.mimes' =>'حقل الصورة يجب ان يكون  من النوع pdf,jpg,bmp,jpeg,png   ',
             
 
         ];

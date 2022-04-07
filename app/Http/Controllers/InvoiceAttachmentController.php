@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use File;
+use App\Traits\InvoiceTrait;
 use Illuminate\Http\Request;
 use App\Models\InvoiceAttachment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use File;
 
 class InvoiceAttachmentController extends Controller
 {
+    use InvoiceTrait;
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +40,29 @@ class InvoiceAttachmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+
+            'pic' => 'mimes:pdf,jpeg,png,jpg',
+    
+            ], [
+                'pic.mimes' => 'صيغة المرفق يجب ان تكون   pdf, jpeg , png , jpg',
+            ]);
+            $invoice_number = $request->invoice_number;
+            $invoice_id     = $request->invoice_id;
+            // Move Img to folder attavhments 
+            $name = $this->saveImage ($request->file('pic') ,'Attachments/' . $invoice_number);
+           
+            InvoiceAttachment::create([
+                'file_name' => $name,
+                'invoice_number' => $invoice_number,
+                'invoice_id' => $invoice_id,
+                'created_by'    =>  Auth::user()->name,
+            ]);
+            session()->flash('Add', 'تم اضافة المرفق  بنجاح');
+            return back();
+        
+        
     }
 
     /**

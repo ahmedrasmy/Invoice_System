@@ -113,9 +113,12 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Invoice $invoice)
+    public function edit($id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+        $sections = Section::all();
+
+        return view('invoices.edit_invoice',compact('invoice','sections'));
     }
 
     /**
@@ -125,9 +128,27 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(StoreInvoiceRequest $request, $id)
     {
-        //
+        $invoice =Invoice::findOrFail($id);
+        $invoice->update([
+            'invoice_number' => $request->invoice_number,
+            'invoice_date' => $request->invoice_date,
+            'due_date' => $request->due_date,
+            'product' => $request->product,
+            'section_id' => $request->section,
+            'amount_collection' => $request->amount_collection,
+            'amount_commission' => $request->amount_commission,
+            'discount' => $request->discount,
+            'value_vat' => $request->value_vat,
+            'rate_vat' => $request->rate_vat,
+            'total' => $request->total,
+            'status' => 'غير مدفوعة',
+            'value_status' => 2,
+            'note' => $request->note,
+        ]);
+        session()->flash('edit', 'تم تعديل الفاتورة بنجاح');
+        return back();
     }
 
     /**

@@ -200,9 +200,9 @@
                                             enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile"
-                                                    name="file_name" required>
-                                                <input type="hidden" id="customFile" name="invoice_number"
+                                                <input type="file" class="custom-file-input" id="customFile" name="pic"
+                                                    required>
+                                                <input type="hidden" id="invoice_number" name="invoice_number"
                                                     value="{{ $invoice->invoice_number }}">
                                                 <input type="hidden" id="invoice_id" name="invoice_id"
                                                     value="{{ $invoice->id }}">
