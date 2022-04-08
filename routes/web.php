@@ -30,7 +30,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
 Route::get('edit_invoice/{id}','App\Http\Controllers\InvoiceController@edit');
 Route::post('update_invoice/{id}','App\Http\Controllers\InvoiceController@update')->name('invoices.update');
-
+Route::post('delete_invoice','App\Http\Controllers\InvoiceController@destory')->name('invoices.destory');
+Route::get('status/show/{id}','App\Http\Controllers\InvoiceController@show')->name('status.show');
+Route::post('status/update/{id}','App\Http\Controllers\InvoiceController@statusUpdate')->name('status.update');
 Route::resource('sections', 'App\Http\Controllers\SectionController');
 
 Route::resource('products', 'App\Http\Controllers\ProductController');
