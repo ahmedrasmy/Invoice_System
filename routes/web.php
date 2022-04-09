@@ -28,6 +28,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
+Route::get('invoices_paid','App\Http\Controllers\InvoiceController@invoicePaid')->name('invoices.paid');
+Route::get('invoices_partial','App\Http\Controllers\InvoiceController@invoicePartial')->name('invoices.partial');
+Route::get('invoices_unpaid','App\Http\Controllers\InvoiceController@invoiceUnpaid')->name('invoices.unpaid');
 Route::get('edit_invoice/{id}','App\Http\Controllers\InvoiceController@edit');
 Route::post('update_invoice/{id}','App\Http\Controllers\InvoiceController@update')->name('invoices.update');
 Route::post('delete_invoice','App\Http\Controllers\InvoiceController@destory')->name('invoices.destory');
@@ -36,6 +39,8 @@ Route::post('status/update/{id}','App\Http\Controllers\InvoiceController@statusU
 Route::resource('sections', 'App\Http\Controllers\SectionController');
 
 Route::resource('products', 'App\Http\Controllers\ProductController');
+
+Route::resource('archive','App\Http\Controllers\ArchiveInvoiceController');
 
 Route::get('section/{id}','App\Http\Controllers\InvoiceController@getProducts');
 

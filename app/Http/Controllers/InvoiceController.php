@@ -175,15 +175,27 @@ class InvoiceController extends Controller
         $id =$request->invoice_id;
         $invoice =Invoice::where('id',$id)->first();
         $invoiceAttachment =InvoiceAttachment::where('invoice_id',$id)->first();
-        if(!empty($invoiceAttachment->invoice_number))
+        $id_page=$request->id_page;
+
+        if(!$id_page == 2)
         {
-            $file = new Filesystem;
-            $file->deleteDirectory(public_path('Attachments/'.$invoiceAttachment->invoice_number));
-        
+            if(!empty($invoiceAttachment->invoice_number))
+                {
+                    $file = new Filesystem;
+                    $file->deleteDirectory(public_path('Attachments/'.$invoiceAttachment->invoice_number));
+                
+                }
+            $invoice->forceDelete();
+            session()->flash('delete_invoice');
+            return redirect('/invoices');
         }
-        $invoice->forceDelete();
-        session()->flash('delete_invoice');
-        return redirect('/invoices');
+        else 
+        {
+            $invoice->delete();
+            session()->flash('archive_invoice');
+            return redirect('/archive');
+        }
+        
     }
     public function getProducts($id){
         $products = DB::table("products")->where("section_id", $id)->pluck("Product_name", "id");
@@ -203,7 +215,7 @@ class InvoiceController extends Controller
 
        if($request->status === 'مدفوعة'){
             $invoice->update([
-                'value_status'=>1,
+                'value_status'=> 1,
                 'status' => $request->status,
                 'payment_date' =>$request->payment_date,
             ]);
@@ -223,7 +235,7 @@ class InvoiceController extends Controller
         $invoice->update([
             'value_status' => 3,
             'status' => $request->status,
-            'payment_date' => $request->payment_Date,
+            'payment_date' => $request->payment_date,
         ]);
         InvoiceDetail::create([
             'id_invoice' => $id,
@@ -240,5 +252,18 @@ class InvoiceController extends Controller
     session()->flash('Status_Update');
     return redirect('/invoices');
        
+    }
+
+    public function invoicePaid(){
+        $invoices=Invoice::where('value_status',1)->get();
+        return view('invoices.invoices_paid',compact('invoices'));
+    }
+    public function invoiceUnpaid(){
+        $invoices=Invoice::where('value_status',2)->get();
+        return view('invoices.invoices_unpaid',compact('invoices'));
+    }
+    public function invoicePartial(){
+        $invoices=Invoice::where('value_status',3)->get();
+        return view('invoices.invoices_partial',compact('invoices'));
     }
 }
