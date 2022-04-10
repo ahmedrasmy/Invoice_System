@@ -15,6 +15,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\StoreInvoiceStatusRequest;
+use App\Models\User;
+use App\Notifications\AddInvoice;
+use Illuminate\Support\Facades\Notification;
 
 class InvoiceController extends Controller
 {
@@ -94,6 +97,11 @@ class InvoiceController extends Controller
             ]);
             
         }
+
+        // send message to user
+        $user = User::first();
+        Notification::send($user,new AddInvoice($invoice_id));
+
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
     }
@@ -265,5 +273,9 @@ class InvoiceController extends Controller
     public function invoicePartial(){
         $invoices=Invoice::where('value_status',3)->get();
         return view('invoices.invoices_partial',compact('invoices'));
+    }
+    public function printInvoice($id){
+        $invoice=Invoice::findOrFail($id);
+        return view('invoices.print_invoice',compact('invoice'));
     }
 }
