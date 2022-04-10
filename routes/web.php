@@ -33,6 +33,7 @@ Route::get('invoices_paid','App\Http\Controllers\InvoiceController@invoicePaid')
 Route::get('invoices_partial','App\Http\Controllers\InvoiceController@invoicePartial')->name('invoices.partial');
 Route::get('invoices_unpaid','App\Http\Controllers\InvoiceController@invoiceUnpaid')->name('invoices.unpaid');
 Route::get('print_invoice/{id}','App\Http\Controllers\InvoiceController@printInvoice')->name('print_invoice');
+Route::get('export_invoices', [InvoiceController::class, 'export']);
 Route::post('delete_invoice','App\Http\Controllers\InvoiceController@destory')->name('invoices.destory');
 Route::get('status/show/{id}','App\Http\Controllers\InvoiceController@show')->name('status.show');
 Route::post('status/update/{id}','App\Http\Controllers\InvoiceController@statusUpdate')->name('status.update');
