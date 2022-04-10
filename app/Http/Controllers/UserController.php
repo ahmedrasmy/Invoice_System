@@ -34,7 +34,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('users.Add_user',compact('roles'));
     }
     
     /**
@@ -49,16 +49,16 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles_name' => 'required'
         ]);
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles_name'));
     
-        return redirect()->route('users.index')
+        return redirect()->view('users.show_users')
                         ->with('success','User created successfully');
     }
     
@@ -102,7 +102,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles_name' => 'required'
         ]);
     
         $input = $request->all();
@@ -116,9 +116,9 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
     
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles_name'));
     
-        return redirect()->route('users.index')
+        return redirect()->view('users.show_users')
                         ->with('success','User updated successfully');
     }
     
@@ -131,7 +131,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->view('users.show_users')
                         ->with('success','User deleted successfully');
     }
 }
