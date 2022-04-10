@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvoiceController;
 
@@ -55,5 +57,10 @@ Route::post('delete_file', 'App\Http\Controllers\InvoiceAttachmentController@des
 
 Route::resource('InvoiceAttachments', 'App\Http\Controllers\InvoiceAttachmentController');
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    
+});
 
 Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
