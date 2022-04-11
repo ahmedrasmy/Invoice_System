@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('invoice_number', 50);
-            $table->date('invoice_Date')->nullable();
+            $table->date('invoice_date')->nullable();
             $table->date('due_date')->nullable();
             $table->string('product', 50);
             $table->bigInteger( 'section_id' )->unsigned();

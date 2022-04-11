@@ -14,11 +14,21 @@ use Illuminate\Support\Facades\Hash;
     
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:قائمة المستخدمين', ['only' => ['index']]);
+         $this->middleware('permission:اضافة مستخدم', ['only' => ['create','store']]);
+         $this->middleware('permission:تعديل مستخدم', ['only' => ['edit','update']]);
+         $this->middleware('permission:حذف مستخدم', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    
     public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);
@@ -57,9 +67,11 @@ class UserController extends Controller
     
         $user = User::create($input);
         $user->assignRole($request->input('roles_name'));
-    
-        return redirect()->view('users.show_users')
-                        ->with('success','User created successfully');
+        
+        session()->flash('add_user');
+        return redirect()->route('users.index');
+       
+       
     }
     
     /**
@@ -118,8 +130,9 @@ class UserController extends Controller
     
         $user->assignRole($request->input('roles_name'));
     
-        return redirect()->view('users.show_users')
-                        ->with('success','User updated successfully');
+        session()->flash('update_user');
+        return redirect()->route('users.index');
+                       
     }
     
     /**
@@ -128,10 +141,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        User::find($id)->delete();
-        return redirect()->view('users.show_users')
-                        ->with('success','User deleted successfully');
+        $id =$request->user_id;
+        $user =User::findOrFail($id);
+        $user->delete();
+        session()->flash('delete_user');
+        return redirect()->route('users.index');
     }
 }

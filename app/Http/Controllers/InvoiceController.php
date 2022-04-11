@@ -25,6 +25,20 @@ class InvoiceController extends Controller
 {
     use InvoiceTrait;
 
+    function __construct()
+    {
+         $this->middleware('permission:قائمة الفواتير', ['only' => ['index','fullDetails']]);
+         $this->middleware('permission:الفواتير المدفوعة', ['only' => ['invoicePaid']]);
+         $this->middleware('permission:الفواتير المدفوعة جزئيا', ['only' => ['invoicePartial']]);
+         $this->middleware('permission:الفواتير الغير مدفوعة', ['only' => ['invoiceUnpaid']]);
+         $this->middleware('permission:اضافة فاتورة', ['only' => ['create','store','getProducts']]);
+         $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit','update']]);
+         $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
+         $this->middleware('permission:تغير حالة الدفع', ['only' => ['statusUpdate']]);
+         $this->middleware('permission:طباعةالفاتورة', ['only' => ['printInvoice']]);
+         $this->middleware('permission:تصدير EXCEL', ['only' => ['export']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

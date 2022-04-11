@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 class InvoiceAttachmentController extends Controller
 {
     use InvoiceTrait;
+
+    function __construct()
+    {
+         
+         $this->middleware('permission: اضافة مرفق', ['only' => ['store']]);
+         $this->middleware('permission:حذف مرفق', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

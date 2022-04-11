@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ArchiveInvoiceController extends Controller
 {
+
+
+    function __construct()
+    {
+         $this->middleware('permission:ارشفة الفاتورة', ['only' => ['index','update','destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
