@@ -95,12 +95,13 @@
                     <ul class="slide-menu">
                         @can('تقرير الفواتير')
                             <li>
-                                <a class="slide-item" href="{{ url('/' . ($page = 'cards')) }}">تقارير الفواتير</a>
+                                <a class="slide-item" href="{{ route('reports.invoices') }}">تقارير
+                                    الفواتير</a>
                             </li>
                         @endcan
                         @can('تقرير العملاء')
                             <li>
-                                <a class="slide-item" href="{{ url('/' . ($page = 'darggablecards')) }}">تقارير
+                                <a class="slide-item" href="{{ route('reports.customers') }}">تقارير
                                     العملاء</a>
                             </li>
                         @endcan
