@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreInvoiceRequest;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreInvoiceStatusRequest;
+use App\Notifications\AddInvoiceDatabase;
 
 class InvoiceController extends Controller
 {
@@ -114,10 +114,13 @@ class InvoiceController extends Controller
             
         }
 
-        // send message to user
+        // send message to user by gmail
         $user = User::first();
         Notification::send($user,new AddInvoice($invoice_id));
 
+         // send message Notification to user by database
+        $invoice = Invoice::latest()->first();
+        Notification::send($user, new AddInvoiceDatabase($invoice));
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
     }
@@ -298,5 +301,16 @@ class InvoiceController extends Controller
     {
         
         return Excel::download(new InvoicesExport, 'invoices.xlsx');
+    }
+
+    public function MarkAsRead_all ()
+    {
+
+        $userUnreadNotification= auth()->user()->unreadNotifications;
+
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
     }
 }

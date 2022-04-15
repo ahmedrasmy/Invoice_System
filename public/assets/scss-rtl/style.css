@@ -8701,9 +8701,9 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
     padding-top: 0;
     margin-top: 0;
     border-top: 0;
-    padding-left: 15px;
-    margin-left: 15px;
-    border-left: 1px solid #949eb7;
+    padding-right: 15px;
+    margin-right: 15px;
+    border-right: 1px solid #949eb7;
   }
 }
 
@@ -17523,7 +17523,7 @@ body {
 }
 
 .size:first-of-type {
-  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .details .rdiobox span:after {
@@ -18032,7 +18032,7 @@ pre {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   -o-border-radius: 4px;
-  z-index: 10000;
+  z-index: 1000;
   height: 50px;
   width: 50px;
   background-repeat: no-repeat;
@@ -25399,6 +25399,24 @@ pre {
   right: auto !important;
 }
 
+@media (min-width: 992px) {
+  .top-header .header-brand {
+    display: none;
+  }
+  .top-header .main-header-center {
+    margin-right: 0 !important;
+  }
+  .top-header .header-brand.header-brand2 {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    top: 17px;
+  }
+}
+
 .adtocart {
   background: linear-gradient(45deg, #f93a5a, #f7778c) !important;
   width: 50px;
@@ -31289,26 +31307,6 @@ object, embed, video {
   transition: none;
   font-size: 14px;
   padding-right: 31px;
-}
-
-.app-sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  color: #14112d;
-  width: 240px;
-  max-height: 100%;
-  z-index: 1000;
-  background: #fff;
-  -webkit-box-shadow: 15px 0px 18px 12px #b3bcd0;
-  box-shadow: 15px 0px 18px 12px #b3bcd0;
-  border-right: 1px solid #dee4ec;
-  padding-bottom: 0;
-  -webkit-transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
-  transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
 }
 
 .app-sidebar .slide.active .side-menu__item {

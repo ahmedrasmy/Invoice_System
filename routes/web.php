@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvoiceController;
+use App\Notifications\AddInvoiceDatabase;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,5 +69,8 @@ Route::post('reports/invoices/search','App\Http\Controllers\InvoiceReportControl
 
 Route::get('reports/customers','App\Http\Controllers\CustomerReportController@index')->name('reports.customers');
 Route::post('reports/customers/search','App\Http\Controllers\CustomerReportController@searchCustomer')->name('reports.customers.search');
+
+Route::get('MarkAsRead_all','App\Http\Controllers\InvoiceController@MarkAsRead_all');
+
 
 Route::get('/{page}', 'App\Http\Controllers\AdminController@index');

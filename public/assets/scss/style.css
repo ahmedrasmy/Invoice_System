@@ -18026,7 +18026,7 @@ pre {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   -o-border-radius: 4px;
-  z-index: 10000;
+  z-index: 1000;
   height: 50px;
   width: 50px;
   background-repeat: no-repeat;
@@ -31277,26 +31277,6 @@ object, embed, video {
   transition: none;
   font-size: 14px;
   padding-right: 31px;
-}
-
-.app-sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  color: #14112d;
-  width: 240px;
-  max-height: 100%;
-  z-index: 1000;
-  background: #fff;
-  -webkit-box-shadow: -8px 12px 18px 0 #b3bcd0;
-  box-shadow: -8px 12px 18px 0 #b3bcd0;
-  border-right: 1px solid #dee4ec;
-  padding-bottom: 0;
-  -webkit-transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
-  transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
 }
 
 .app-sidebar .slide.active .side-menu__item {

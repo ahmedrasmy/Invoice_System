@@ -143,7 +143,7 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-down text-white"></i>
                                 <span class="text-white tx-16 op-7">
-                                    {{ round((\App\Models\Invoice::where('value_status', 1)->count() / \App\Models\Invoice::count()) * 100, 2) }}%
+                                    {{ round((\App\Models\Invoice::where('value_status', 3)->count() / \App\Models\Invoice::count()) * 100, 2) }}%
                                 </span>
                             </span>
                         </div>
